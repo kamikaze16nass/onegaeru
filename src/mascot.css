@@ -1,0 +1,81 @@
+/* Size overrides kept with the mascot so character tuning stays isolated. */
+.welcome {
+  min-height: 126px;
+  max-height: 140px;
+  padding: 10px 14px;
+}
+
+.welcome .frog {
+  width: 106px !important;
+  height: 106px !important;
+}
+
+.frog-icon {
+  display: inline-block;
+  flex: 0 0 auto;
+  vertical-align: -0.18em;
+  overflow: visible;
+}
+
+.frog-icon__body,
+.frog-icon__foot,
+.frog-icon__eye-rim {
+  fill: #68b96f;
+}
+
+.frog-icon__eye {
+  fill: #fffdf7;
+}
+
+.frog-icon__pupil {
+  fill: #38342f;
+}
+
+.frog-icon__mouth {
+  fill: none;
+  stroke: #287d45;
+  stroke-width: 1.8;
+  stroke-linecap: round;
+}
+
+.balance strong,
+.reward-pill,
+.status-pill,
+.reward-total strong {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+}
+
+@keyframes frog-send {
+  0%, 100% { transform: translate(47px, 25px) scale(.7); }
+  50% { transform: translate(52px, 21px) scale(.7); }
+}
+
+@keyframes frog-return {
+  0%, 100% { transform: translate(-3px, 25px) scale(.7); }
+  50% { transform: translate(3px, 25px) scale(.7); }
+}
+
+@media (max-width: 374px) {
+  .welcome {
+    padding: 10px 12px;
+    gap: 11px;
+  }
+
+  .welcome .frog {
+    width: 98px !important;
+    height: 98px !important;
+  }
+}
+
+@media (min-width: 768px) {
+  .welcome {
+    padding: 14px 20px;
+  }
+
+  .welcome .frog {
+    width: 112px !important;
+    height: 112px !important;
+  }
+}

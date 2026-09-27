@@ -1,0 +1,68 @@
+.pyon-card{padding:20px;margin-bottom:26px}.pyon-card h2{font-size:20px}.pyon-card-title{display:flex;align-items:center;gap:16px}.pyon-card h3{margin:0 0 6px}.pyon-card p{font-size:14px;line-height:1.7}.pyon-page{max-width:560px;margin:auto;padding:18px 16px calc(20px + env(safe-area-inset-bottom));min-height:100dvh;display:flex;flex-direction:column;gap:12px}.pyon-heading{display:flex;align-items:center;justify-content:space-between}.pyon-heading h1{font-size:24px;margin:0}.pyon-heading>strong{font-size:30px;color:var(--green-dark)}.pyon-heading small{font-size:14px}.pyon-intro,.pyon-result{padding:22px}.pyon-intro h2{font-size:21px}.pyon-intro p{font-size:14px;line-height:1.8}.pyon-stats{display:flex;justify-content:space-between;font-size:13px}.pyon-lily{position:relative;width:110px;height:64px;border-radius:50%;background:#91cb78;border:3px solid #58974c;box-shadow:0 7px 0 #83bdb04d;display:grid;place-items:center}.pyon-lily:after{content:'';position:absolute;right:-3px;top:19px;border-right:22px solid #d9f1ed;border-top:12px solid transparent;border-bottom:6px solid transparent}.pyon-tile-label{position:absolute;top:70px;font-size:13px;font-weight:700;white-space:nowrap;color:#355c46}.pyon-lily--water{background:transparent;border:2px dashed #599d9a}.pyon-lily--water:after{display:none}.pyon-hole{height:35px;width:48px;border-radius:50%;background:#387f84;border:3px solid #285e64}.pyon-enemy{background:#fff0d9;border-radius:10px;color:#8d4633;padding:5px 12px;font-weight:800}.pyon-coin{position:absolute;top:-22px;display:flex;align-items:center;gap:3px;white-space:nowrap;background:#ffdc7e;color:#76500b;border:2px solid #dcaa38;border-radius:20px;padding:3px 8px;font-size:13px;font-weight:800}.pyon-current .pyon-tile-label{display:none}.pyon-water-caption{position:absolute;bottom:10px;text-align:center;width:100%;font-size:12px;color:#416b64}.pyon-pickup{position:absolute;top:55%;left:calc(50% - 35px);font-weight:800;color:#81520b;animation:pyon-pickup .8s forwards}.pyon-hint{text-align:center;font-size:13px;margin:0;min-height:20px}.pyon-controls{display:grid;grid-template-columns:1fr 1fr;gap:14px;position:sticky;bottom:0;padding:10px 0 calc(8px + env(safe-area-inset-bottom));background:var(--cream);margin-top:auto;z-index:3}.pyon-controls button{min-height:78px;border:2px solid #39844a;border-bottom-width:6px;border-radius:20px;background:#eaf6e8;color:#286438;font-size:26px;font-weight:800;touch-action:manipulation;user-select:none}.pyon-controls button:active{transform:translateY(3px)}.pyon-controls button:disabled{opacity:.7}.pyon-result h2{text-align:center;font-size:36px;color:var(--green-dark);margin-bottom:10px}.pyon-result>p{text-align:center;font-size:14px;line-height:1.7}.pyon-result dl>div{display:flex;justify-content:space-between;align-items:center;padding:12px 0;border-bottom:1px dashed var(--line)}.pyon-result dd{margin:0;font-weight:800}.pyon-earned{color:var(--green-dark);font-size:21px}.pyon-error{padding:12px;background:#fff0d9;border-radius:15px;font-size:14px}.pyon-back{margin-top:8px}.pyon-page button:focus-visible{outline:3px solid #bb731c;outline-offset:3px}
+/* A shallow perspective pond: all positions share project() in pyonMotion.ts. */
+.pyon-page--active{height:100dvh;min-height:0;gap:8px;overflow:hidden;padding-top:12px;padding-bottom:max(8px,env(safe-area-inset-bottom))}
+.pyon-page--active>.pyon-heading,.pyon-page--active>.pyon-stats,.pyon-page--active>.pyon-hint,.pyon-page--active>.pyon-controls,.pyon-page--active>.text-button{flex-shrink:0}
+.pyon-page--error{height:auto;min-height:100dvh;overflow:visible}
+.pyon-field{position:relative;flex:1;min-height:180px;overflow:hidden;isolation:isolate;background:linear-gradient(#c2e3e6,#dbefed 45%,#c9e8e4);border:2px solid #b4d9d2;border-radius:26px}
+.pyon-page--error .pyon-field{flex:none;height:40dvh}
+.pyon-water{position:absolute;inset:-30px 0;background:repeating-linear-gradient(174deg,transparent 0 51px,#ffffff28 52px 53px,transparent 54px 83px);pointer-events:none}
+.pyon-background{position:absolute;inset:0;z-index:0;overflow:hidden;pointer-events:none}
+.pyon-bg-strip{position:absolute;inset:0}
+.pyon-far-background{position:absolute;inset:0 0 auto;width:100%;height:var(--far-height);object-fit:cover;object-position:center top;pointer-events:none}
+.pyon-bank-layer{position:absolute;inset:0}
+/* Stationary horizon beneath the moving layers; blend in field coordinates,
+   so scrolling tiles and their joins never move the fade boundary. */
+.pyon-far-layer{position:absolute;inset:0;mask-image:linear-gradient(to bottom,#000 var(--far-blend-start),transparent var(--far-height))}
+/* Union of the clear center and sky masks fades only the lower side vegetation. */
+.pyon-far-background{mask-image:linear-gradient(to right,transparent,#000 var(--far-center-inset),#000 calc(100% - var(--far-center-inset)),transparent),linear-gradient(to bottom,#000 var(--far-side-start),transparent var(--far-side-end));mask-composite:add}
+.pyon-bank-layer{mask-image:linear-gradient(to bottom,transparent var(--bank-fade-start),rgb(0 0 0 / var(--bank-fade-opacity)) var(--bank-fade-middle),#000 var(--bank-fade-end))}
+.pyon-bank-plane{position:absolute;top:0;bottom:0;transform-origin:center bottom}
+.pyon-bg-travel{position:absolute;inset:0;transform:translate3d(0,var(--bg-from),0);will-change:transform}
+.pyon-bg-travel--advance{animation:pyon-bg-advance var(--bg-duration) cubic-bezier(.333333,0,.666667,1) both}
+.pyon-bg-travel img{position:absolute;left:0;display:block;max-width:none;pointer-events:none}
+.pyon-bg-strip--right img{left:auto;right:0;object-position:right;transform:scaleX(-1);transform-origin:center}
+@keyframes pyon-bg-advance{from{transform:translate3d(0,var(--bg-from),0)}to{transform:translate3d(0,var(--bg-to),0)}}
+.pyon-pad{position:absolute;width:124px;height:66px;transform-origin:center;will-change:transform}
+.pyon-lily{width:124px;height:66px}
+.pyon-lily--image{background:transparent;border-color:transparent;box-shadow:none}
+.pyon-lily--image:after{display:none}
+/* Enlarge only the artwork, compensating for PNG padding; pad anchors stay unchanged. */
+.pyon-lily-image{position:absolute;left:50%;top:50%;width:168px;height:auto;max-width:none;transform:translate(-50%,-50%);pointer-events:none}
+/* The heron's leaf is in the lower part of its image. Align that leaf with the pad. */
+.pyon-lily--enemy .pyon-lily-image{width:210px;transform:translate(-50%,-72%)}
+.pyon-current .pyon-tile-label,.pyon-distant .pyon-tile-label{display:none}
+.pyon-distant{filter:saturate(.65);pointer-events:none}
+.pyon-player{position:absolute;width:76px;height:68px;transform-origin:50% 100%;z-index:8;pointer-events:none;will-change:transform}
+.pyon-frog,.pyon-frog-image{position:relative;display:block;width:76px;height:68px}
+/* A separate frog layer: visible feet meet the player's existing bottom anchor. */
+.pyon-player .pyon-frog-image{position:absolute;left:50%;bottom:-9px;width:112px;height:auto;max-width:none;transform:translateX(-50%);pointer-events:none}
+.pyon-player .pyon-frog-image[data-pose="frog_jump_straight"]{width:144px;bottom:-29px}
+.pyon-player .pyon-frog-image[data-pose="frog_jump_left"]{bottom:-18px}
+.pyon-player .pyon-frog-image[data-pose="frog_jump_right"]{width:124px;bottom:-8px}
+/* Scale only artwork about its feet, independently of the projected player anchor. */
+.pyon-player{--frog-art-scale:.85}
+.pyon-player .pyon-frog-image{transform:translateX(-50%) scale(var(--frog-art-scale));transform-origin:50% calc(100% - 9px)}
+.pyon-player .pyon-frog-image[data-pose="frog_jump_straight"]{transform-origin:50% calc(100% - 29px)}
+.pyon-player .pyon-frog-image[data-pose="frog_jump_left"]{transform-origin:50% calc(100% - 18px)}
+.pyon-player .pyon-frog-image[data-pose="frog_jump_right"]{transform-origin:50% calc(100% - 8px)}
+.pyon-frog-back{position:absolute;left:16px;top:12px;width:44px;height:49px;border-radius:45% 45% 42% 42%;background:linear-gradient(90deg,#54a66a,#86ce79 48%,#60b671);border:2px solid #398950;box-shadow:inset 0 -6px 0 #469c5833}
+.pyon-frog-back:before,.pyon-frog-back:after{content:'';position:absolute;top:-6px;width:17px;height:16px;border-radius:50%;background:#70bd72;border-top:2px solid #398950}
+.pyon-frog-back:before{left:-3px}.pyon-frog-back:after{right:-3px}
+.pyon-frog-leg{position:absolute;top:40px;width:24px;height:25px;background:#65b570;border:2px solid #398950;border-radius:60% 40% 40% 40%}
+.pyon-frog-leg--left{left:5px;transform:rotate(25deg)}.pyon-frog-leg--right{right:5px;transform:rotate(-25deg)}
+.pyon-frog--frog_jump_left{rotate:-12deg}.pyon-frog--frog_jump_right{rotate:12deg}
+.pyon-frog[class*="frog_jump"] .pyon-frog-leg{top:47px;height:21px}
+.pyon-field--playing .pyon-current .pyon-pad-surface{animation:pyon-sink var(--decision-ms) linear forwards}
+.pyon-controls{position:static;margin-top:0;padding:2px 0;gap:12px;background:transparent}
+.pyon-controls button{min-height:74px}
+.pyon-tile-label{font-size:18px;top:72px}
+.pyon-water-caption{font-size:11px;bottom:8px}
+@keyframes pyon-sink{0%,60%{transform:translateY(0);opacity:1}100%{transform:translateY(18px);opacity:.25}}
+@keyframes pyon-pickup{0%{opacity:1}100%{opacity:0;transform:translateY(-32px)}}
+@media(max-height:650px){.pyon-page--active{gap:4px;padding-top:6px}.pyon-heading h1{font-size:20px}.pyon-controls button{min-height:70px}.pyon-page--active>.text-button{padding:4px}}
+@media(prefers-reduced-motion:reduce){.pyon-water{transform:none!important}.pyon-field--playing .pyon-current .pyon-pad-surface{animation:pyon-fade var(--decision-ms) linear forwards}}
+@keyframes pyon-fade{from{opacity:1}to{opacity:.25}}
+/* Recover vertical pond space from surrounding spacing, keeping controls in view. */
+.pyon-page--active{gap:3px;padding-top:6px;padding-bottom:max(4px,env(safe-area-inset-bottom))}
+.pyon-page--active .pyon-heading>div{display:flex;align-items:baseline;gap:8px}
+.pyon-page--active .pyon-heading .eyebrow{margin:0;letter-spacing:0}

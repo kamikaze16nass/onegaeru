@@ -1,0 +1,52 @@
+.app-shell {
+  padding-bottom: calc(116px + env(safe-area-inset-bottom));
+}
+
+.bottom-nav {
+  height: calc(88px + env(safe-area-inset-bottom));
+  padding: 8px 8px calc(9px + env(safe-area-inset-bottom));
+}
+
+.bottom-nav button {
+  min-height: 54px;
+  gap: 3px;
+  font-size: 13px;
+  font-weight: 800;
+  line-height: 1.2;
+}
+
+.bottom-nav button > span {
+  height: 30px;
+  font-size: 25px;
+  line-height: 30px;
+}
+
+.bottom-nav .ask-button {
+  min-height: 72px;
+  margin-top: -34px;
+  font-size: 14px;
+  line-height: 1.2;
+}
+
+.bottom-nav .ask-button > span {
+  font-size: 27px;
+}
+
+.bottom-nav .ask-button small {
+  font-size: 12px;
+  line-height: 1.1;
+}
+
+@media (max-width: 374px) {
+  .bottom-nav button {
+    font-size: 12px;
+  }
+
+  .bottom-nav button > span {
+    font-size: 23px;
+  }
+
+  .bottom-nav .ask-button {
+    font-size: 13px;
+  }
+}
